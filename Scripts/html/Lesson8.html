@@ -1,0 +1,589 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Introduction to Data Types</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-25"><meta name="DC.source" content="Lesson8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Introduction to Data Types</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">The Limitation of Computers</a></li><li><a href="#2">Data Types</a></li><li><a href="#4">Numerical Types</a></li><li><a href="#6">Useful functions</a></li><li><a href="#8">Operators</a></li><li><a href="#10">Strings</a></li><li><a href="#16">Structs (vs Arrays)</a></li><li><a href="#18">Cells [Parang dictionary sa Python]</a></li></ul></div><h2 id="1">The Limitation of Computers</h2><p>&gt; Real numbers in mathematics:</p><div><ul><li>Can be infinitely large</li><li>Have infinitely fine resolution</li></ul></div><p>&gt; Computers: Finite Memory</p><div><ul><li>Upper limit on the largest number that can be represented</li><li>Lower limit on the absolute value of any non-zero number</li></ul></div><p>&gt; <b>The set of values that can be represented by a MATLAB variable is finite</b></p><h2 id="2">Data Types</h2><p>&gt; MATLAB: many different data types</p><p>&gt; A data type is defined by:</p><div><ul><li>Set of values</li><li>Set of operations that can be performed on those values</li></ul></div><p>&gt; MATLAB:</p><div><ul><li>All elements of a given array must be of the same type</li><li>Elementary type</li></ul></div><p>&gt; Type of a MATLAB array is defined by</p><div><ul><li>Number of dimensions</li><li>Size in each dimension</li><li>Elementary Type</li></ul></div><h2 id="4">Numerical Types</h2><p><b>double</b></p><div><ul><li>Default type in MATLAB</li><li>Floating point representation</li></ul></div><p>Example: <img src="Lesson8_eq14869351395756062153.png" alt="$12.34 = 1234 * 10^{(-2)}$" style="width:130px;height:14px;"></p><p>Mantissa and exponent</p><div><ul><li>64 bits (8 bytes)</li></ul></div><p><b>single</b></p><div><ul><li>32-bit floating point</li></ul></div><p><b>Integer Types</b></p><div><ul><li>Signed, unsigned</li><li>8-, 16-, 32-, 64-bit long</li></ul></div><p><img vspace="5" hspace="5" src="1.PNG" alt=""> </p><h2 id="6">Useful functions</h2><p>&gt; Type check:</p><pre class="language-matlab">class(x)
+isa(x)
+</pre><p>&gt; Range check:</p><pre class="language-matlab">intmax, intmin
+realmax, realmin
+</pre><p>&gt; Conversion:</p><pre>Name of function = name of desired data type
+ int8(x), uint32(x), double(x), etc.</pre><h2 id="8">Operators</h2><p>&gt; <b>Arithmetic operators</b></p><div><ul><li>Operands of the same data type: No problem</li><li>Different data Types:</li></ul></div><pre class="language-matlab">*<span class="string">"mixed-mode arithmetic"</span>
+*Many rules <span class="string">and</span> <span class="string">restrictions</span>
+</pre><p>&gt; <b>Relational operators</b></p><div><ul><li>Different data types are always allowed</li><li>Result is always logical type</li></ul></div><h2 id="10">Strings</h2><p>Text: string</p><p>Argument to fprintf and other funcions</p><p>String: vector of char-s</p><p>Numerical Type</p><div><ul><li>Uses an encoding scheme</li><li>Each character is represented by a number</li><li>ASCII scheme</li></ul></div><pre class="language-matlab">American <span class="string">Standard</span> <span class="string">Code</span> <span class="string">for</span> <span class="string">Information</span> <span class="string">Interchange</span>
+Developed <span class="string">in</span> <span class="untermstring">1960's</span>
+7 bits, 128 characters
+    Latin <span class="string">Alphabet</span>
+    Punctuation
+    Special <span class="string">Characters</span>
+Newer <span class="string">schemes</span> <span class="string">with</span> <span class="string">far</span> <span class="string">more</span> <span class="string">characters</span>
+ASCII <span class="string">is</span> <span class="string">a</span> <span class="string">subset</span> <span class="string">of</span> <span class="string">them</span>
+</pre><p>Exercise Print out the visible characters of the ASCII table:</p><pre class="language-matlab"><span class="keyword">function</span> char_codes
+<span class="keyword">for</span> ii = 33:126
+    fprintf(<span class="string">'%s'</span>, ii);
+<span class="keyword">end</span>
+fprintf(<span class="string">'%s'</span>,10); <span class="comment">% same as fprintf('\n'); 10: value for next line</span>
+<span class="keyword">end</span>
+</pre><p>EXAMPLE!!!</p><pre>   message = 'Let''s skip class today!'
+   code = double(message)
+   secret = char(code + 3)
+   char(secret-3)</pre><p>In command Window:     message =  'Let's skip class today!'</p><pre>   code =
+     Columns 1 through 11
+       76   101   116    39   115    32   115   107   105   112    32
+     Columns 12 through 22
+       99   108    97   115   115    32   116   111   100    97   121
+     Column 23
+       33</pre><pre>   secret = 'Ohw*v#vnls#fodvv#wrgd|$'</pre><pre>   ans = 'Let's skip class today!'</pre><p>The sprintf needs an output argument to print/display the string on the command window unlike the fprintf function.</p><pre>   &gt;&gt; fprintf('The area of a circle with radius %.2f is %.2f!\n', r,pi*r^2);
+    The area of a circle with radius 12.00 is 452.39!
+   &gt;&gt; sprintf('The area of a circle with radius %.2f is %.2f!\n', r,pi*r^2);
+   &gt;&gt;</pre><p>If you want to change your string to a lower/uppercase ones, use <tt>lower,upper</tt></p><p>For more string functions look at:</p><p><img vspace="5" hspace="5" src="2.PNG" alt=""> </p><h2 id="16">Structs (vs Arrays)</h2><p>An array must be homogenous:</p><div><ul><li>It cannot contain elements of multiple types.</li></ul></div><p>A struct can be heterogenous:</p><div><ul><li>It can contain multiple types.</li></ul></div><p>A struct is different from an array: * fields, nt elements * field names, not indices * Fields in the same struct can have different tyes</p><p>Versality inside:</p><div><ul><li>A field of a struct can contain another struct</li><li><b>Structs can hold arrays, and arrays can hold structs</b></li></ul></div><pre class="codeinput"><span class="comment">% Syntax</span>
+<span class="comment">%</span>
+<span class="comment">%     &gt;&gt; r.ssn = 12345678</span>
+<span class="comment">%     r =</span>
+<span class="comment">%        ssn: 12345678</span>
+<span class="comment">%     &gt;&gt; class(r)</span>
+<span class="comment">%     ans =</span>
+<span class="comment">%       struct</span>
+<span class="comment">%     &gt;&gt; class(r.ssn)</span>
+<span class="comment">%     ans =</span>
+<span class="comment">%         'double'</span>
+<span class="comment">%     &gt;&gt; r.name = 'Homer Simpson'</span>
+<span class="comment">%     r =</span>
+<span class="comment">%       struct with fields:</span>
+<span class="comment">%</span>
+<span class="comment">%          ssn: 12345678</span>
+<span class="comment">%         name: 'Homer Simpson'</span>
+<span class="comment">%     &gt;&gt; r.address.street = 'Cauayan City, Isabela'</span>
+<span class="comment">%     r =</span>
+<span class="comment">%       struct with fields:</span>
+<span class="comment">%</span>
+<span class="comment">%             ssn: 12345678</span>
+<span class="comment">%            name: 'Homer Simpson'</span>
+<span class="comment">%         address: [1&times;1 struct]</span>
+<span class="comment">%</span>
+<span class="comment">% Struct functions</span>
+<span class="comment">%</span>
+<span class="comment">% &lt;&lt;3.jpg&gt;&gt;</span>
+<span class="comment">%</span>
+</pre><p>Exampleeee</p><pre>   &gt;&gt; account.number = 1234567
+   account =
+       number: 1234567
+   &gt;&gt; account.balance = 5000
+   account =
+     struct with fields:
+       number: 1234567
+       balance: 5000
+   &gt;&gt; account.owner.name = 'Joe Smith'
+   account =
+     struct with fields:
+        number: 1234567
+       balance: 5000
+         owner: [1&times;1 struct]
+   &gt;&gt; account.owner.email = 'joe@matlabmoc.com'
+   account =
+        number: 1234567
+       balance: 5000
+         owner: [1&times;1 struct]
+   &gt;&gt; class(account)
+   ans =
+       'struct'
+   &gt;&gt; class(account.number)
+   ans =
+       'double'
+   &gt;&gt; class(account.balance)
+   ans =
+       'double'
+   &gt;&gt; account.owner
+   ans =
+     struct with fields:</pre><pre>        name: 'Joe Smith'
+       email: 'joe@matlabmoc.com'</pre><p>If we want another account(field) but in the same struct:</p><pre>   &gt;&gt; account(2).number = 7654321
+   account =
+     1&times;2 struct array with fields:
+       number
+       balance
+       owner
+   &gt;&gt; account(2).balance = 1000
+   account =
+       number
+       balance
+       owner
+   &gt;&gt; account(2).owner.name = 'Jane Farmer'
+   account =
+       number
+       balance
+       owner</pre><pre>   &gt;&gt; account(1:2).owner
+   ans =
+        name: 'Joe Smith'
+       email: 'joe@matlabmoc.com'
+         age: 23
+   ans =
+       name: 'Jane Farmer'</pre><p><tt>rmfield</tt> to remove a field needs an uotput argument to update kasi if rmfield lang ginawa mo without output argument, ipapakita niya lang sa'yo yung struct without that field pero hindi niya iuupdate ang mismong struct</p><pre>   &gt;&gt; rmfield(account(1).owner, 'age')
+   ans =
+        name: 'Joe Smith'
+       email: 'joe@matlabmoc.com'
+   &gt;&gt; account(1).owner
+   ans =
+        name: 'Joe Smith'
+       email: 'joe@matlabmoc.com'
+         age: 23</pre><p>Now let's check!</p><pre>   &gt;&gt; account(1).owner = rmfield(account(1).owner,'age')
+   &gt;&gt; account(1).owner
+   ans =
+        name: 'Joe Smith'
+       email: 'joe@matlabmoc.com'</pre><p>Pwede rin tayong gumawa ng struct in an array way!     &gt;&gt; course = struct('Area', 'CS', 'number', 103,'title','Introductory Programming for Engineers and Scientists')     course =           Area: 'CS'         number: 103          title: 'Introductory Programming for Engineers and Scientists'</p><h2 id="18">Cells [Parang dictionary sa Python]</h2><p>How to store a page text?</p><div><ul><li>Each line should be a separate string</li><li>Cannot use an array of chars: Each line would have to have the same length</li><li>A vector of objects with each referring to one line</li></ul></div><p>Pointer</p><pre>* Each variable (scalar, vector, array, etc.) is stored in the computer
+memory
+* Each memory locaion has a unique adress
+* A pointer is a variable that stores an adress
+* MATLAB calls a pointer a * _"cell"_ *</pre><p>Cells</p><p>&gt; MATLAB has a restrictive pointer model</p><div><ul><li>Strict rules on what can be done with cells</li><li>Harder to make mistakes</li></ul></div><p>&gt; But it is a powerful ways to store heterogenous data</p><div><ul><li>Cell arrays</li><li>Used more frequently than structs</li></ul></div><p>&gt; New syntax:</p><div><ul><li>To access the data a cell points to, use <tt>{}</tt></li></ul></div><p>Example : cells_of_text.m (Lesson_7_Examples folder)</p><p><img vspace="5" hspace="5" src="4.jpg" alt=""> </p><p><img vspace="5" hspace="5" src="5.jpg" alt=""> </p><p>We can also index arrays in a cell by:</p><p><img vspace="5" hspace="5" src="indexing_array_in_a_cell.jpg" alt=""> </p><pre>   &gt;&gt; c{1} = pi
+   &gt;&gt; c{2} = 'Cell or not cell?'
+   c =
+     *1&times;2 cell array*
+       {[3.1416]}    {'Cell or not cell?'}</pre><p><tt>c{2}</tt> : gives the string mismo <i>vs</i> <tt>c(2)</tt> : gives back an array</p><pre>   &gt;&gt; c{2}
+   ans =
+       'Cell or not cell?'       % String
+   &gt;&gt; c(2)
+   ans =
+     1&times;1 cell array
+       {'Cell or not cell?'}     % ARRAY ang binigay
+   &gt;&gt; c(1)
+   ans =
+     1&times;1 cell array
+       {[3.1416]}</pre><p>Cell functions</p><p><img vspace="5" hspace="5" src="cell_function.jpg" alt=""> </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Introduction to Data Types
+% 
+%% The Limitation of Computers
+% > Real numbers in mathematics:
+%
+% * Can be infinitely large
+% * Have infinitely fine resolution
+%
+% > Computers: Finite Memory
+%
+% * Upper limit on the largest number that can be represented
+% * Lower limit on the absolute value of any non-zero number
+%
+% > *The set of values that can be represented by a MATLAB variable is finite*
+%% Data Types
+%%
+% > MATLAB: many different data types
+%
+% > A data type is defined by:
+% 
+% * Set of values
+% * Set of operations that can be performed on those values
+%
+% > MATLAB:
+% 
+% * All elements of a given array must be of the same type
+% * Elementary type
+%
+% > Type of a MATLAB array is defined by
+%
+% * Number of dimensions
+% * Size in each dimension
+% * Elementary Type
+
+%% Numerical Types
+% *double*
+%
+% * Default type in MATLAB
+% * Floating point representation
+%%
+% Example: $12.34 = 1234 * 10^{(-2)}$
+%
+% Mantissa and exponent
+%
+% * 64 bits (8 bytes) 
+%
+% *single*
+%
+% * 32-bit floating point
+%
+% *Integer Types*
+%
+% * Signed, unsigned
+% * 8-, 16-, 32-, 64-bit long
+%
+% <<1.PNG>>
+% 
+%% Useful functions
+% > Type check:
+%% 
+%   class(x)
+%   isa(x)
+%
+% > Range check:
+%   
+%   intmax, intmin
+%   realmax, realmin
+%
+% > Conversion:
+%
+%  Name of function = name of desired data type
+%   int8(x), uint32(x), double(x), etc. 
+
+%% Operators
+%%
+% > *Arithmetic operators*
+%
+% * Operands of the same data type: No problem
+% * Different data Types: 
+%
+%   *"mixed-mode arithmetic"
+%   *Many rules and restrictions
+%
+% > *Relational operators*
+%
+% * Different data types are always allowed
+% * Result is always logical type
+
+%% Strings
+% Text: string
+%
+% Argument to fprintf and other funcions
+%
+% String: vector of char-s
+%
+% Numerical Type
+%
+% * Uses an encoding scheme
+% * Each character is represented by a number
+% * ASCII scheme
+%
+%   American Standard Code for Information Interchange
+%   Developed in 1960's 
+%   7 bits, 128 characters
+%       Latin Alphabet
+%       Punctuation
+%       Special Characters
+%   Newer schemes with far more characters
+%   ASCII is a subset of them
+
+%% 
+% Exercise
+% Print out the visible characters of the ASCII table:
+%%
+%   function char_codes
+%   for ii = 33:126
+%       fprintf('%s', ii);
+%   end
+%   fprintf('%s',10); % same as fprintf('\n'); 10: value for next line
+%   end
+
+%% 
+% EXAMPLE!!!
+%
+%     message = 'Let''s skip class today!'
+%     code = double(message)
+%     secret = char(code + 3)
+%     char(secret-3)
+%%
+% In command Window:
+%     message =  'Let's skip class today!'
+%
+%     code =
+%       Columns 1 through 11
+%         76   101   116    39   115    32   115   107   105   112    32
+%       Columns 12 through 22
+%         99   108    97   115   115    32   116   111   100    97   121
+%       Column 23
+%         33
+%
+%     secret = 'Ohw*v#vnls#fodvv#wrgd|$'
+%
+%     ans = 'Let's skip class today!'
+
+%%
+% The sprintf needs an output argument to print/display the string on the 
+% command window unlike the fprintf function. 
+%
+%     >> fprintf('The area of a circle with radius %.2f is %.2f!\n', r,pi*r^2);
+%      The area of a circle with radius 12.00 is 452.39!
+%     >> sprintf('The area of a circle with radius %.2f is %.2f!\n', r,pi*r^2);
+%     >>
+%
+% If you want to change your string to a lower/uppercase ones, use
+% |lower,upper|
+%
+% For more string functions look at: 
+% 
+% <<2.PNG>>
+% 
+%% Structs (vs Arrays)
+%
+% An array must be homogenous:
+%
+% * It cannot contain elements of multiple types.
+%
+% A struct can be heterogenous:
+%
+% * It can contain multiple types.
+%
+% A struct is different from an array:
+% * fields, nt elements
+% * field names, not indices
+% * Fields in the same struct can have different tyes
+%
+% Versality inside:
+%
+% * A field of a struct can contain another struct
+% * *Structs can hold arrays, and arrays can hold structs*
+
+% Syntax
+%
+%     >> r.ssn = 12345678
+%     r =
+%        ssn: 12345678
+%     >> class(r)
+%     ans =
+%       struct
+%     >> class(r.ssn)
+%     ans =
+%         'double'
+%     >> r.name = 'Homer Simpson'
+%     r = 
+%       struct with fields:
+% 
+%          ssn: 12345678
+%         name: 'Homer Simpson'
+%     >> r.address.street = 'Cauayan City, Isabela'
+%     r = 
+%       struct with fields:
+% 
+%             ssn: 12345678
+%            name: 'Homer Simpson'
+%         address: [1×1 struct]
+%
+% Struct functions
+%
+% <<3.jpg>>
+%
+%%
+% Exampleeee
+%
+%     >> account.number = 1234567
+%     account =
+%         number: 1234567
+%     >> account.balance = 5000
+%     account = 
+%       struct with fields: 
+%         number: 1234567
+%         balance: 5000
+%     >> account.owner.name = 'Joe Smith'
+%     account = 
+%       struct with fields:
+%          number: 1234567
+%         balance: 5000
+%           owner: [1×1 struct]
+%     >> account.owner.email = 'joe@matlabmoc.com'
+%     account = 
+%          number: 1234567
+%         balance: 5000
+%           owner: [1×1 struct]
+%     >> class(account)
+%     ans =
+%         'struct'
+%     >> class(account.number)
+%     ans =
+%         'double'
+%     >> class(account.balance)
+%     ans =
+%         'double'
+%     >> account.owner
+%     ans = 
+%       struct with fields:
+% 
+%          name: 'Joe Smith'
+%         email: 'joe@matlabmoc.com'
+%
+% If we want another account(field) but in the same struct:
+%
+%     >> account(2).number = 7654321
+%     account = 
+%       1×2 struct array with fields:
+%         number
+%         balance
+%         owner
+%     >> account(2).balance = 1000
+%     account = 
+%         number
+%         balance
+%         owner
+%     >> account(2).owner.name = 'Jane Farmer' 
+%     account = 
+%         number
+%         balance
+%         owner
+%
+%
+%     >> account(1:2).owner
+%     ans = 
+%          name: 'Joe Smith'
+%         email: 'joe@matlabmoc.com'
+%           age: 23
+%     ans = 
+%         name: 'Jane Farmer'
+%
+% |rmfield| to remove a field needs an uotput argument to update kasi if
+% rmfield lang ginawa mo without output argument, ipapakita niya lang sa'yo
+% yung struct without that field pero hindi niya iuupdate ang mismong
+% struct
+%
+%     >> rmfield(account(1).owner, 'age')
+%     ans = 
+%          name: 'Joe Smith'
+%         email: 'joe@matlabmoc.com'
+%     >> account(1).owner
+%     ans = 
+%          name: 'Joe Smith'
+%         email: 'joe@matlabmoc.com'
+%           age: 23
+%
+% Now let's check!
+%
+%     >> account(1).owner = rmfield(account(1).owner,'age')
+%     >> account(1).owner
+%     ans =  
+%          name: 'Joe Smith'
+%         email: 'joe@matlabmoc.com'
+%
+% Pwede rin tayong gumawa ng struct in an array way!
+%     >> course = struct('Area', 'CS', 'number', 103,'title','Introductory Programming for Engineers and Scientists')
+%     course = 
+%           Area: 'CS'
+%         number: 103
+%          title: 'Introductory Programming for Engineers and Scientists'
+%
+%% Cells [Parang dictionary sa Python]
+%
+% How to store a page text?
+%
+% * Each line should be a separate string
+% * Cannot use an array of chars: Each line would have to have the same
+% length
+% * A vector of objects with each referring to one line
+% 
+% Pointer
+%
+%  * Each variable (scalar, vector, array, etc.) is stored in the computer
+%  memory
+% * Each memory locaion has a unique adress
+% * A pointer is a variable that stores an adress
+% * MATLAB calls a pointer a * _"cell"_ *
+%
+% Cells
+%
+% > MATLAB has a restrictive pointer model
+%
+% * Strict rules on what can be done with cells
+% * Harder to make mistakes
+%
+% > But it is a powerful ways to store heterogenous data
+%
+% * Cell arrays
+% * Used more frequently than structs
+%
+% > New syntax:
+%
+% * To access the data a cell points to, use |{}|
+%
+% Example : cells_of_text.m (Lesson_7_Examples folder)
+%
+% <<4.jpg>>
+%
+% <<5.jpg>>
+%
+% We can also index arrays in a cell by:
+%
+% <<indexing_array_in_a_cell.jpg>>
+%
+%     >> c{1} = pi
+%     >> c{2} = 'Cell or not cell?'
+%     c =
+%       *1×2 cell array*
+%         {[3.1416]}    {'Cell or not cell?'}
+%
+% |c{2}| : gives the string mismo _vs_ |c(2)| : gives back an array
+%
+%     >> c{2}
+%     ans =
+%         'Cell or not cell?'       % String
+%     >> c(2)
+%     ans =
+%       1×1 cell array
+%         {'Cell or not cell?'}     % ARRAY ang binigay
+%     >> c(1)
+%     ans =
+%       1×1 cell array
+%         {[3.1416]}
+%
+% Cell functions
+%
+% <<cell_function.jpg>>
+
+
+##### SOURCE END #####
+--></body></html>

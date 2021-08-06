@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Lesson7_loop</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-21"><meta name="DC.source" content="Lesson7_loop.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Loops</a></li><li><a href="#2">For loop</a></li><li><a href="#3">Fibonacci Sequence</a></li><li><a href="#4">Exercise: Halfsum</a></li><li><a href="#5">While Loops</a></li><li><a href="#6">Exercise: While loop (next smallest prime number after n)</a></li><li><a href="#7">Break statements (See BreakExamples.m)</a></li></ul></div><h2 id="1">Loops</h2><pre class="codeinput"><span class="comment">%{
+</span><span class="comment">- a new control construct that makes it possible to repeat a block
+</span><span class="comment">          of code a number of times.
+</span><span class="comment">- We have already used loops without knowing it:
+</span><span class="comment">    &gt;&gt; n = 1:5;
+</span><span class="comment">    &gt;&gt; total = sum(n)
+</span><span class="comment">- MATLAB uses loops internally both to compute the result of the colon
+</span><span class="comment">    operator and to compute the sum of the elements of the vector 'n'
+</span><span class="comment">    above.
+</span><span class="comment">- Implicit loop
+</span><span class="comment">%}</span>
+</pre><h2 id="2">For loop</h2><p>%function suminput(N) total = 0; % loop: for n= 1:5              % control statement (part of the loop)     total = total + n;  % body (part of the loop) end fprintf('total equals %d\n',total)</p><pre class="codeinput"><span class="comment">%end</span>
+
+<span class="comment">% another example:</span>
+<span class="comment">% for x = rand(1,5)    % assigns a row vector of random numbers</span>
+<span class="comment">%     if x &gt; 0.5</span>
+<span class="comment">%         fprintf('Random number %f is large.\n', x)</span>
+<span class="comment">%     else</span>
+<span class="comment">%         fprintf('Random number %f is small.\n', x)</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+
+    <span class="comment">% OBSERVATIONS:</span>
+        <span class="comment">% The values assigned to the loop index do not have to be integers,</span>
+        <span class="comment">%     regularly spaced, or assigned in increasing order.</span>
+        <span class="comment">% In fact, they do not have to be scalar either:</span>
+        <span class="comment">%   &gt; The loop index will be assigned the columns of the array</span>
+        <span class="comment">% Any other control construct can be used in the body of the</span>
+        <span class="comment">%   for-loop: if-statements, other loops, etc.</span>
+
+<span class="comment">% total = 0</span>
+<span class="comment">% for n = 1:5</span>
+<span class="comment">%     n</span>
+<span class="comment">%     n = n + 1;</span>
+<span class="comment">%     total = total + n;</span>
+<span class="comment">% end</span>
+<span class="comment">% fprintf('Total: %d\n', total)</span>
+<span class="comment">%</span>
+<span class="comment">% u = [5 4 8 8 2];</span>
+<span class="comment">% v = [5 5 7 8 8];</span>
+<span class="comment">% for ii = 1:length(u)</span>
+<span class="comment">%     w(ii) = u(ii)-v(ii);</span>
+<span class="comment">% end</span>
+</pre><h2 id="3">Fibonacci Sequence</h2><p>function f = fibo(n) if (~isscalar(n)  n &lt; 1  n~= fix(n))     error('n must be a positive integer!'); end f(1) = 1; f(2) = 1; for i = 3:n     f(i) = f(i-2) + f(i-1); end</p><pre class="codeinput"><span class="comment">% N = 7;</span>
+<span class="comment">% for nn = 1:N</span>
+<span class="comment">%     for mm = 1:nn</span>
+<span class="comment">%         fprintf('*');</span>
+<span class="comment">%     end</span>
+<span class="comment">%     fprintf('\n');</span>
+<span class="comment">% end</span>
+</pre><h2 id="4">Exercise: Halfsum</h2><p>A function that returns the sum of the uppertriangle matrix of a given array</p><pre class="codeinput"><span class="comment">% function s = halfsum(A)</span>
+<span class="comment">% s = 0;</span>
+<span class="comment">% [r c] = size(A);</span>
+<span class="comment">% for n = 1:r</span>
+<span class="comment">%     for m = 1:c</span>
+<span class="comment">%         if n &lt;= m</span>
+<span class="comment">%             s = s + A(n,m);</span>
+<span class="comment">%         else</span>
+<span class="comment">%             s = s;</span>
+<span class="comment">%         end</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+</pre><h2 id="5">While Loops</h2><p>The general form of a while loop is like an if-statement but the block is evaluated repeatedly. The control statement is a condition.</p><pre class="codeinput"><span class="comment">% function [n total] = possum(limit)</span>
+<span class="comment">%     total = 0;</span>
+<span class="comment">%     n = 0;</span>
+<span class="comment">%     while total &lt;= limit             % control statement (condition)</span>
+<span class="comment">%         n = n+1;                     % body</span>
+<span class="comment">%         total = total + n;           % body</span>
+<span class="comment">%     end</span>
+<span class="comment">% fprintf('sum: %d count: %d\n', total, n)</span>
+<span class="comment">% end</span>
+
+<span class="keyword">function</span> y = approx_sqrt(x)
+    y = x;
+    <span class="keyword">while</span> abs(y^2 - x) &gt; 1e-7*x
+        y = (x/y + y)/2
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% For negative x, the while loop will be in infinite loop. We must be</span>
+<span class="comment">% careful in setting up loops like the while-loop.</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+Error in Lesson7_loop (line 106)
+    y = x;</pre><h2 id="6">Exercise: While loop (next smallest prime number after n)</h2><pre class="codeinput"><span class="keyword">function</span> k = next_prime(n)
+    k = n+1;
+    <span class="keyword">while</span> isprime(k) == 0
+        k = k + 1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="7">Break statements (See BreakExamples.m)</h2><p>After some iterations are done, some of the lines must be skipped. Using break will make this possible</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Loops
+%{
+- a new control construct that makes it possible to repeat a block
+          of code a number of times.
+- We have already used loops without knowing it:
+    >> n = 1:5;
+    >> total = sum(n)
+- MATLAB uses loops internally both to compute the result of the colon
+    operator and to compute the sum of the elements of the vector 'n'
+    above.
+- Implicit loop
+%}
+
+%% For loop
+% %function suminput(N)
+% total = 0;
+% % loop:
+% for n= 1:5              % control statement (part of the loop)
+%     total = total + n;  % body (part of the loop)
+% end
+% fprintf('total equals %d\n',total)
+%end
+
+% another example:
+% for x = rand(1,5)    % assigns a row vector of random numbers
+%     if x > 0.5
+%         fprintf('Random number %f is large.\n', x)
+%     else
+%         fprintf('Random number %f is small.\n', x)
+%     end
+% end
+
+    % OBSERVATIONS:
+        % The values assigned to the loop index do not have to be integers,
+        %     regularly spaced, or assigned in increasing order.
+        % In fact, they do not have to be scalar either:
+        %   > The loop index will be assigned the columns of the array
+        % Any other control construct can be used in the body of the
+        %   for-loop: if-statements, other loops, etc.
+ 
+% total = 0
+% for n = 1:5
+%     n
+%     n = n + 1;
+%     total = total + n;
+% end
+% fprintf('Total: %d\n', total)
+% 
+% u = [5 4 8 8 2];
+% v = [5 5 7 8 8];
+% for ii = 1:length(u)
+%     w(ii) = u(ii)-v(ii);
+% end
+    
+%% Fibonacci Sequence
+% function f = fibo(n)
+% if (~isscalar(n) || n < 1 || n~= fix(n))
+%     error('n must be a positive integer!');
+% end
+% f(1) = 1;
+% f(2) = 1;
+% for i = 3:n
+%     f(i) = f(i-2) + f(i-1);
+% end
+
+% N = 7;
+% for nn = 1:N
+%     for mm = 1:nn
+%         fprintf('*');
+%     end
+%     fprintf('\n');
+% end
+
+%% Exercise: Halfsum
+% A function that returns the sum of the uppertriangle matrix of a given
+% array
+
+% function s = halfsum(A)
+% s = 0;
+% [r c] = size(A);
+% for n = 1:r
+%     for m = 1:c
+%         if n <= m
+%             s = s + A(n,m);
+%         else
+%             s = s;
+%         end
+%     end
+% end
+
+%% While Loops
+% The general form of a while loop is like an if-statement but the block is
+% evaluated repeatedly. The control statement is a condition.
+
+% function [n total] = possum(limit)
+%     total = 0;
+%     n = 0;
+%     while total <= limit             % control statement (condition)
+%         n = n+1;                     % body
+%         total = total + n;           % body
+%     end
+% fprintf('sum: %d count: %d\n', total, n)
+% end
+
+function y = approx_sqrt(x)
+    y = x;
+    while abs(y^2 - x) > 1e-7*x
+        y = (x/y + y)/2
+    end
+end
+% For negative x, the while loop will be in infinite loop. We must be
+% careful in setting up loops like the while-loop.
+
+%% Exercise: While loop (next smallest prime number after n)
+function k = next_prime(n)
+    k = n+1;
+    while isprime(k) == 0 
+        k = k + 1;         
+    end
+end
+
+%% Break statements (See BreakExamples.m)
+% After some iterations are done, some of the lines must be skipped.
+% Using break will make this possible
+##### SOURCE END #####
+--></body></html>
